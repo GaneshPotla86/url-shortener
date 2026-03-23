@@ -2,14 +2,17 @@ const { nanoid } = require("nanoid")
 const URL=require('../models/url')
 async function handlegenerateNewShortURL(req,res){
     const body=req.body
-    if(!body.url) return res.status(400).json({error: "url is required"})
+    const url=body.url
+    if(!body.url) return res.
+    status(400).json({error: "url is required"})
     const shortId = nanoid(8)
     await URL.create({
         shortId: shortId,
-        redirectURL: body.url,
+        redirectURL:url,
         visitHistory:[],
+        
     })
-    return res.json({id:shortId})
+    return res.render('home',{id:shortId,});
 }
 
 async function handleAnalytics(req,res){

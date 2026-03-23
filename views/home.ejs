@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My First Page</title>
+</head>
+<body>
+    <h1>URL Shortener</h1>
+    <div>
+        <% if(locals.id){ %>
+            <p>URL Generated: http://localhost:8001/url/<%= id%></p>
+        <% } %>
+        <form method="POST" action="/url">
+            <label>Enter Your Original URL:</label>
+            <input type="text" name="url" placeholder="https://example.com"/>
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+    <div>
+        <% try { %>
+        <% if(locals.urls){ %>
+            <table>
+                <thead>
+                    <th>S.no</th>
+                    <th>ShortId</th>
+                    <th>Redirect</th>
+                    <th>Clicks</th>
+                </thead>
+                <tbody>
+                    <% urls.forEach((url,index)=>{ %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= url.shortId %></td>
+                            <td><%= url.redirectURL %></td>
+                            <td><%= url.visitHistory.length %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+
+        <% } catch(err) { %>
+            <p>Error occurred while fetching URLs.</p>
+        <% } %>
+</body>
+</html>
